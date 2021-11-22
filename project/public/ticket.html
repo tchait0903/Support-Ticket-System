@@ -90,7 +90,43 @@
 
   </td>
 
-    <td style="width:20%; background-color:black; height:100%">
+    <td style="width:20%; background-color:black; height:100%; opacity:.5; color:white">
+
+      <div style="height:100%">
+        <br>
+        <u><center>Ticket Details</center></u>
+        <br>
+
+        <center>Created: <span id="createdDate"></span></center>
+        <center>Last Message: <span id="lastMessage"></span></center>
+        <center>Message Count: <span id="messageCount"></span></center>
+
+
+        <br>
+        <u><center>Ticket Options</center></u>
+        <br>
+        <center>Resolving this ticket will mark it as complete.</center>
+        <br>
+        <center><button>Resolve Ticket</button></center>
+
+        <br><br>
+
+        <div id="reassign">
+          <center>Reassign to a colleague?</center>
+          <br>
+          <div id="reassignDiv"></div>
+          <center><button>Reassign</button></center>
+        </div>
+
+
+
+
+
+
+        <br>
+        <u><center>User Details</center></u>
+      </div>
+
 
     </td>
 
@@ -143,10 +179,21 @@ var type = " ";
         firebase.database().ref("conversations/" + conversationID).update({
           "staffUID": uid
         });
+
+//get representative users and create a dropdown with all representatives in reassignDiv
+
         document.getElementById("user").innerHTML = "Chatting with Customer ";
       } else {
         document.getElementById("user").innerHTML = "Chatting with Representative ";
       }
+
+
+
+
+
+
+
+
 
       firebase.database().ref('/users/' + uid).once('value', (snapshot) => {
 
