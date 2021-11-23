@@ -175,17 +175,7 @@ var type = " ";
 
 
 
-      if (type == "rep") {
-        firebase.database().ref("conversations/" + conversationID).update({
-          "staffUID": uid
-        });
 
-//get representative users and create a dropdown with all representatives in reassignDiv
-
-        document.getElementById("user").innerHTML = "Chatting with Customer ";
-      } else {
-        document.getElementById("user").innerHTML = "Chatting with Representative ";
-      }
 
 
 
@@ -199,7 +189,17 @@ var type = " ";
 
           type = snapshot.val().type;
 
+          if (type == "rep") {
+            firebase.database().ref("conversations/" + conversationID).update({
+              "staffUID": uid
+            });
 
+    //get representative users and create a dropdown with all representatives in reassignDiv
+
+            document.getElementById("user").innerHTML = "Chatting with Customer ";
+          } else {
+            document.getElementById("user").innerHTML = "Chatting with Representative ";
+          }
 
 
 
