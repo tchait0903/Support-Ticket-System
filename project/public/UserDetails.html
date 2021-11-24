@@ -143,6 +143,29 @@
     });
 
 
+if (type == "rep") {
+  firebase.database().ref('representatives/' + uid).set({
+    "userID": uid,
+    "email": email,
+    "firstName": fName,
+    "lastName": lName,
+    "fullName": fName + " " + lName,
+    "phone": phone,
+    "type": type
+  });
+} else {
+  firebase.database().ref('customers/' + uid).set({
+    "userID": uid,
+    "email": email,
+    "firstName": fName,
+    "lastName": lName,
+    "fullName": fName + " " + lName,
+    "phone": phone,
+    "type": type
+  });
+
+}
+
     setTimeout(function(){location.assign("Dashboard.html")}, 2000);
 
 

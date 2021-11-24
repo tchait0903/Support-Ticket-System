@@ -107,7 +107,7 @@
         <br>
         <center>Resolving this ticket will mark it as complete.</center>
         <br>
-        <center><button>Resolve Ticket</button></center>
+        <center><button onclick="resolvedCheck()">Resolve Ticket</button></center>
 
         <br><br>
 
@@ -115,6 +115,7 @@
           <center>Reassign to a colleague?</center>
           <br>
           <div id="reassignDiv"></div>
+          <br>
           <center><button>Reassign</button></center>
         </div>
 
@@ -125,6 +126,17 @@
 
         <br>
         <u><center>User Details</center></u>
+
+        <center>Name: <span id="otherName"></span></center>
+        <center>Email: <span id="otherEmail"></span></center>
+        <center>Phone: <span id="otherPhone"></span></center>
+        <center>Type: <span id="otherType"></span></center>
+        <center>Unique User ID: <span id="otherUID"></span></center>
+
+
+
+
+
       </div>
 
 
@@ -189,12 +201,39 @@ var type = " ";
 
           type = snapshot.val().type;
 
-          if (type == "rep") {
-            firebase.database().ref("conversations/" + conversationID).update({
-              "staffUID": uid
-            });
 
-    //get representative users and create a dropdown with all representatives in reassignDiv
+
+          if (type == "rep") {
+
+            var center = document.createElement("center");
+            reassignDiv.appendChild(center);
+
+            var select = document.createElement("select");
+            select.name = "pets";
+            select.id = "pets";
+            center.appendChild(select);
+
+//get representative users and create a dropdown with all representatives in reassignDiv
+            const ref = firebase.database().ref('/representatives/');
+            ref.on('child_added', (data) => {
+
+
+
+              var reassignDiv = document.getElementById("reassignDiv");
+
+
+
+
+              var option = document.createElement("option");
+              option.value = data.val().userID;
+              option.text = data.val().fullName;
+              select.appendChild(option);
+
+
+
+
+
+            });
 
             document.getElementById("user").innerHTML = "Chatting with Customer ";
           } else {
