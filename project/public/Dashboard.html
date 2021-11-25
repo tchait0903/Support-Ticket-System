@@ -171,6 +171,7 @@ ref.once('value', (snapshot) => {
     var childData = childSnapshot.val();
     // ...
 
+if (childData.resolved == false) {
 
 console.log(childSnapshot.key);
 
@@ -199,7 +200,39 @@ console.log(childSnapshot.key);
       var lineBreak = document.createElement("HR");
       conversationsDOM.appendChild(lineBreak);           // Append <p> to <div> with id="myDIV"
 
+    } else if(childData.assignedStaff == uid) {
 
+      let div = document.createElement("center");
+      div.innerHTML = "Email Address: " + childData.customerEmail;
+      div.style = "font-size: 20px; padding-left:20px; padding-right:20px";
+          conversationsDOM.appendChild(div);
+
+          let divx = document.createElement("center");
+          divx.innerHTML = "Conversation Reassigned to me";
+          divx.style = "font-size: 20px; padding-left:20px; padding-right:20px";
+              conversationsDOM.appendChild(divx);
+
+      let divs = document.createElement("div");
+          divs.innerHTML = "Ticket Subject: " + childData.subject;
+          divs.style = "font-size: 20px; padding-left:20px; padding-right:20px;";
+              conversationsDOM.appendChild(divs);
+
+              let divss = document.createElement("div");
+                  divss.innerHTML = "Ticket Category: " + childData.category;
+                  divss.style = "font-size: 20px; padding-left:20px; padding-right:20px;";
+                      conversationsDOM.appendChild(divss);
+
+              let img = document.createElement("a");
+                  img.innerHTML = "OPEN CONVERSATION";
+                  img.href = "ticket.html?id=" + childKey;
+                  img.style = "padding:20px; font-size:20px; color: white;";
+                      conversationsDOM.appendChild(img);
+
+
+          var lineBreak = document.createElement("HR");
+          conversationsDOM.appendChild(lineBreak);           // Append <p> to <div> with id="myDIV"
+
+    }
 
   });
 });

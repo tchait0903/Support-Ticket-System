@@ -78,7 +78,7 @@
         </div>
       </td>
       <td style="width:12%">
-        <a id="resolved" onclick="resolvedCheck()" style="text-decoration: none;"><p style="color:white; font-size:20px; text-align:right;">Resolved</p></a>
+        <a id="resolved" style="text-decoration: none;"><p style="color:white; font-size:20px; text-align:right;">Resolved</p></a>
       </td>
       <td style="width:12%">
         <a id="sendMessage" style="text-decoration: none;"><p style="color:white; font-size:20px; text-align:right;">Send Message</p></a>
@@ -107,7 +107,7 @@
         <br>
         <center>Resolving this ticket will mark it as complete.</center>
         <br>
-        <center><button onclick="resolvedCheck()">Resolve Ticket</button></center>
+        <center><button id="resolve">Resolve Ticket</button></center>
 
         <br><br>
 
@@ -162,10 +162,7 @@ var type = " ";
     }
 
 
-    function resolvedCheck() {
-    var resolved = confirm("Are you sure you want to permanently resolve this ticket?")
-    //returns either true or false
-    }
+
 
 
 
@@ -249,6 +246,25 @@ var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,k
 vars[key] = value;
 });
 var conversationID = vars.id;
+
+
+
+
+document.getElementById("resolve").addEventListener('click', function resolvedCheck() {
+        var resolved = confirm("Are you sure you want to permanently resolve this ticket?")
+        //returns either true or false
+
+          if (resolved == true) {
+            firebase.database().ref("conversations/"+conversationID).update({
+              "resolved": resolved
+            });
+          }
+
+
+        })
+
+
+
 
 
 
