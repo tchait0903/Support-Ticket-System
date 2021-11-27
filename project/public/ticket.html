@@ -116,7 +116,7 @@
           <br>
           <div id="reassignDiv"></div>
           <br>
-          <center><button>Reassign</button></center>
+          <center><button id="reassignButton">Reassign</button></center>
         </div>
 
 
@@ -207,7 +207,7 @@ var type = " ";
 
             var select = document.createElement("select");
             select.name = "pets";
-            select.id = "pets";
+            select.id = "options";
             center.appendChild(select);
 
 //get representative users and create a dropdown with all representatives in reassignDiv
@@ -256,7 +256,8 @@ document.getElementById("resolve").addEventListener('click', function resolvedCh
 
           if (resolved == true) {
             firebase.database().ref("conversations/"+conversationID).update({
-              "resolved": resolved
+              "resolved": resolved,
+              "assignedStaff": null
             });
           }
 
@@ -264,6 +265,15 @@ document.getElementById("resolve").addEventListener('click', function resolvedCh
         })
 
 
+        document.getElementById("reassignButton").addEventListener('click', function reassign() {
+
+                var optionValue = document.getElementById("options").value;
+                console.log(optionValue);
+                  firebase.database().ref("conversations/"+conversationID).update({
+                    "assignedStaff": optionValue
+                  });
+
+                })
 
 
 
